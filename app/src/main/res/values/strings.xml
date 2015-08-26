@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Android Design Library Adelchi</string>
+    <string name="title_activity_main">Design Library</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="nav_item1">Item 1</string>
+    <string name="nav_item2">Item 2</string>
+    <string name="nav_item3">Item 3</string>
+    <string name="nav_item4">Item 4</string>
+    <string name="nav_item5">Item 5</string>
+    <string name="nav_item6">Item 6</string>
+    <string name="Apri">Apri</string>
+    <string name="Chiudi">Chiudi</string>
+    <string name="navigation_drawer_header">HEADER</string>
+</resources>
