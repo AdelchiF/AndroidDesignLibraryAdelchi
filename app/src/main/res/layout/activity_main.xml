@@ -6,9 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.adelchi.androiddesignlibraryadelchi.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/main_content"
-        android:orientation="vertical"
+    <RelativeLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,7 +20,13 @@
             android:minHeight="?attr/actionBarSize">
         </android.support.v7.widget.Toolbar>
 
-    </LinearLayout>
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar" />
+
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_drawer"

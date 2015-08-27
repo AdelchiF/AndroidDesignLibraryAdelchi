@@ -13,4 +13,8 @@
     <string name="Apri">Apri</string>
     <string name="Chiudi">Chiudi</string>
     <string name="navigation_drawer_header">HEADER</string>
+    <string name="fragment_text">Elemento Selezionato</string>
+    <string name="fragment_text_inserted">Nessun elemento selezionato</string>
+
+    <string name="hello_blank_fragment">Nuovo fragment</string>
 </resources>
