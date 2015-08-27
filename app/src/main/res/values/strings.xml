@@ -4,9 +4,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="nav_item1">Item 1</string>
-    <string name="nav_item2">Item 2</string>
-    <string name="nav_item3">Item 3</string>
+    <string name="nav_item1">Design</string>
+    <string name="nav_item2">Elements</string>
+    <string name="nav_item3">Tab Exemple</string>
     <string name="nav_item4">Item 4</string>
     <string name="nav_item5">Item 5</string>
     <string name="nav_item6">Item 6</string>
@@ -16,5 +16,9 @@
     <string name="fragment_text">Elemento Selezionato</string>
     <string name="fragment_text_inserted">Nessun elemento selezionato</string>
 
-    <string name="hello_blank_fragment">Nuovo fragment</string>
+    <string name="hello_blank_fragment">Fragment</string>
+    <string name="insertName">Inserisci il tuo nome</string>
+    <string name="insertSurname">Inserisci il tuo cognome</string>
+    <string name="field_empty">Il campo non può essere vuoto</string>
+    <string name="title_activity_tab">TabActivity</string>
 </resources>

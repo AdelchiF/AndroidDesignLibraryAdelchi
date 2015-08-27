@@ -1,5 +1,6 @@
 package com.example.adelchi.androiddesignlibraryadelchi;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -87,14 +88,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(getCurrentFocus() != null) {
             Snackbar.make(getCurrentFocus(), menuItem.getTitle(), Snackbar.LENGTH_SHORT).show();
         }
-        ContentElement fragment = new ContentElement();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         switch (selectedDrawerElem){
             case R.id.nav_item_2:
+                ContentElement fragment = new ContentElement();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                break;
+            case R.id.nav_item_3:
+                startActivity(new Intent(this, TabActivity.class));
                 break;
         }
 
