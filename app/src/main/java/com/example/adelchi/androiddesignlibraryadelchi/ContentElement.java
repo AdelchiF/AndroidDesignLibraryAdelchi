@@ -2,13 +2,16 @@ package com.example.adelchi.androiddesignlibraryadelchi;
 
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 
 /**
@@ -20,6 +23,7 @@ public class ContentElement extends Fragment {
     private FloatingActionButton mFabClean;
     private EditText editTextName;
     private EditText editTextSurname;
+    private CoordinatorLayout coordinatorLayout;
 
     public ContentElement() {
         // Required empty public constructor
@@ -37,6 +41,8 @@ public class ContentElement extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        coordinatorLayout = (CoordinatorLayout)view.findViewById(R.id.coorLayout);
 
         editTextName = (EditText)view.findViewById(R.id.insertName);
         editTextSurname = (EditText)view.findViewById(R.id.insertSurname);
@@ -73,8 +79,18 @@ public class ContentElement extends Fragment {
         mFabClean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String name = editTextName.getText().toString();
                 editTextName.setText("");
+                final String surname = editTextSurname.getText().toString();
                 editTextSurname.setText("");
+                editTextName.requestFocus();
+                Snackbar.make(coordinatorLayout, "Elementi cancellati", Snackbar.LENGTH_LONG).setAction("Annnulla", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editTextName.setText(name);
+                        editTextSurname.setText(surname);
+                    }
+                }).show();
             }
         });
 

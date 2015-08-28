@@ -111,4 +111,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onSaveInstanceState(outState);
         outState.putInt(SELECTED_ID, selectedDrawerElem);
     }
+
 }

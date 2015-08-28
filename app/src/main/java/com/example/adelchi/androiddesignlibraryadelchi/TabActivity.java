@@ -23,6 +23,11 @@ public class TabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab);
 
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mTabLayout = (TabLayout)findViewById(R.id.tabLayout);
         mViewPager = (ViewPager)findViewById(R.id.viewPager);
 
@@ -38,7 +43,6 @@ public class TabActivity extends AppCompatActivity {
         // linka il pager con i tab(funziona anche senza questa istruzione)
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        setSupportActionBar(mToolbar);
 
     }
 
