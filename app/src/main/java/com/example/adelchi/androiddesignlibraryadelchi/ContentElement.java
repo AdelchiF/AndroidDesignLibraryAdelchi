@@ -15,7 +15,9 @@ import android.widget.RelativeLayout;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment che contiene alcuni elementi del design library
+ * quali TextInputLayout e FloatingActionButton + Snackbar (con
+ * l'aggiunta di un plusante azione)
  */
 public class ContentElement extends Fragment {
     private TextInputLayout textInputLayoutInsertName;
@@ -84,6 +86,11 @@ public class ContentElement extends Fragment {
                 final String surname = editTextSurname.getText().toString();
                 editTextSurname.setText("");
                 editTextName.requestFocus();
+
+                /**
+                 * è importante passare come genitore il coordinatorlayout se si hai il floatingactionbutton
+                 * per sincronizzare il movimento del pulsante con l'entrata dello snackbar
+                 */
                 Snackbar.make(coordinatorLayout, "Elementi cancellati", Snackbar.LENGTH_LONG).setAction("Annnulla", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

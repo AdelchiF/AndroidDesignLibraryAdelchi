@@ -10,7 +10,8 @@ import com.example.adelchi.androiddesignlibraryadelchi.PagedFragment;
 
 /**
  * Created by Adelchi on 27/08/2015.
- * Pager adapter
+ * Genera le pagine nel PageView instanziando un fragment ogni volta che viene
+ * effettuato o uno slide della pageview o selezionato un nuovo tab
  */
 public class PagerAdapter extends FragmentStatePagerAdapter {
 

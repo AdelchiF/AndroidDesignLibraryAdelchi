@@ -1,5 +1,6 @@
 package com.example.adelchi.androiddesignlibraryadelchi;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
@@ -14,7 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String SELECTED_ID = "SELECTED_ID";
     private Toolbar mToolbar;
@@ -22,35 +23,87 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionbarDrawerToggle;
     private int selectedDrawerElem;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mContext = this;
+
+        /**
+         * Inizializzo il primo fragment da inserire nell'activity
+         * viene inserito all'interno del fragment_container
+         */
+
         ContentFragment contentFragment = new ContentFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, contentFragment);
         fragmentTransaction.commit();
 
-
+        // setto il toolbar come ActionBar
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
-
         setSupportActionBar(mToolbar);
 
+        /**
+         * Il NavigationDrawer è stato implementato nelle design library
+         * attraverso il NavigationView
+         */
         mDrawer = (NavigationView)findViewById(R.id.nav_drawer);
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        // lego il DrawerLayout con il toolbar
         mActionbarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.Apri, R.string.Chiudi);
 
         mDrawerLayout.setDrawerListener(mActionbarDrawerToggle);
 
+        // sincronizzza lo stato del navigationdrawer con il toolbar nel caso in cui è aperto o chiuso
         mActionbarDrawerToggle.syncState();
 
-        mDrawer.setNavigationItemSelectedListener(this);
+        /**
+         * Per aggiungere elementi alla lista del NavigationDrawer il design library prevede il passaggio
+         * di un file xml di tipo menu (menu_drawer) direttamente nel NavigationView(nell'xml) vedi
+         * (app:menu="@menu/menu_drawer").
+         * Qui viene definito come il sistema deve comportarsi quando viene cliccato un elemento della
+         * lista del navigationdrawer
+         */
+        mDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);
+                selectedDrawerElem = menuItem.getItemId();
 
-        selectedDrawerElem = savedInstanceState == null ? R.id.nav_item_1 : savedInstanceState.getInt(SELECTED_ID);
+                switch (selectedDrawerElem) {
+                    case R.id.nav_item_2:
+                        ContentElement fragment = new ContentElement();
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                        break;
+                    case R.id.nav_item_3:
+                        startActivity(new Intent(mContext, TabActivity.class));
+                        break;
+                    case R.id.nav_item_4:
+                        startActivity(new Intent(mContext, CollapsingToolbarActivity.class));
+                        break;
+                }
+
+                // una volta eseguito il click chiudo il navigationdrawer
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+
+        selectedDrawerElem = savedInstanceState == null ? R.id.nav_item_2 : savedInstanceState.getInt(SELECTED_ID);
     }
 
     @Override
@@ -79,31 +132,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mActionbarDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem menuItem) {
-        menuItem.setChecked(true);
-        selectedDrawerElem = menuItem.getItemId();
-        if(getCurrentFocus() != null) {
-            Snackbar.make(getCurrentFocus(), menuItem.getTitle(), Snackbar.LENGTH_SHORT).show();
-        }
-
-        switch (selectedDrawerElem){
-            case R.id.nav_item_2:
-                ContentElement fragment = new ContentElement();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                break;
-            case R.id.nav_item_3:
-                startActivity(new Intent(this, TabActivity.class));
-                break;
-        }
-
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override

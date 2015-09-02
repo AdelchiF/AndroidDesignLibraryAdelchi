@@ -31,10 +31,13 @@ public class TabActivity extends AppCompatActivity {
         mTabLayout = (TabLayout)findViewById(R.id.tabLayout);
         mViewPager = (ViewPager)findViewById(R.id.viewPager);
 
+        // istanzio un nuovo pagerAdapter (viene richiesto il FragmenetManager perchè serve alla superclasse)
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
+        // assegno al viepager il nuovo pageradapter
         mViewPager.setAdapter(mPagerAdapter);
 
+        // assegno il pagerAdapter anche al tablayout
         mTabLayout.setTabsFromPagerAdapter(mPagerAdapter);
 
         // linka i tab con il pager

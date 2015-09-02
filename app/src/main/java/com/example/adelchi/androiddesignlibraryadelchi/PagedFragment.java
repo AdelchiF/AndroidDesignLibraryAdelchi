@@ -15,7 +15,9 @@ import java.util.zip.Inflater;
 
 
 /**
- * PagerFragment
+ * Fragment utilizzato per costruire i contenuti del ViewPager
+ * questo è solo un esempio, nella realtà sarà più complicato di così
+ * questa classe viene richiamata dal PagerAdapter
  */
 public class PagedFragment extends Fragment {
 
@@ -25,8 +27,13 @@ public class PagedFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * @param position numero del tab selezionato
+     * @return viene ritornata una nuova istanza del fragment creato
+     */
     public static PagedFragment newInstance(int position) {
         PagedFragment pagedFragment = new PagedFragment();
+        // nel bundle recuper il numero di tab selezionato
         Bundle arguments = new Bundle();
         arguments.putInt(PAGE_NUM, position);
         pagedFragment.setArguments(arguments);

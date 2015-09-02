@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 /**
  * Created by Adelchi on 27/08/2015.
- * Fragment di default quaando si apre l'app
+ * Fragment di default quando si apre l'app
  */
 public class ContentFragment extends Fragment {
 
