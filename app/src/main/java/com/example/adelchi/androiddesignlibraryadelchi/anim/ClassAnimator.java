@@ -9,6 +9,7 @@ import android.view.ViewAnimationUtils;
 /**
  * Created by Adelchi on 01/09/2015.
  * Questa classe si occupa di effettuare l'animazzione di comparsa/scomparsa di una qualsiasi view
+ * Con l'effetto ripple
  */
 public class ClassAnimator {
 

@@ -8,7 +8,7 @@
     <string name="nav_item2">Elements</string>
     <string name="nav_item3">Tab Exemple</string>
     <string name="nav_item4">Collapsing Toolbar</string>
-    <string name="nav_item5">Item 5</string>
+    <string name="nav_item5">Transitions</string>
     <string name="nav_item6">Item 6</string>
     <string name="Apri">Apri</string>
     <string name="Chiudi">Chiudi</string>
@@ -22,4 +22,6 @@
     <string name="field_empty">Il campo non può essere vuoto</string>
     <string name="title_activity_tab">TabActivity</string>
     <string name="title_activity_collapsing_toolbar">CollapsingToolbarActivity</string>
+    <string name="title_activity_transition">TransitionActivityA</string>
+    <string name="title_activity_transition_activity_b">TransitionActivityB</string>
 </resources>

@@ -32,6 +32,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.adelchi.androiddesignlibraryadelchi.MainActivity" />
         </activity>
+        <activity
+            android:name=".TransitionActivityA"
+            android:label="@string/title_activity_transition"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.adelchi.androiddesignlibraryadelchi.MainActivity" />
+        </activity>
+        <activity
+            android:name=".TransitionActivityB"
+            android:label="@string/title_activity_transition_activity_b"
+            android:parentActivityName=".TransitionActivityA" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.adelchi.androiddesignlibraryadelchi.TransitionActivityA" />
+        </activity>
     </application>
 
 </manifest>

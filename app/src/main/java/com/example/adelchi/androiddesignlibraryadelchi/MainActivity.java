@@ -1,5 +1,6 @@
 package com.example.adelchi.androiddesignlibraryadelchi;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,8 +13,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -94,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_item_4:
                         startActivity(new Intent(mContext, CollapsingToolbarActivity.class));
+                        break;
+                    case R.id.nav_item_5:
+                        startActivity(new Intent(mContext, TransitionActivityA.class));
                         break;
                 }
 

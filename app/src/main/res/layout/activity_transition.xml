@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/tranActAContainer"
+    tools:context="com.example.adelchi.androiddesignlibraryadelchi.TransitionActivityA">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:src="@drawable/gopro_small"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        <ImageView
+            android:id="@+id/imageview1"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/gopro_small1"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true" />
+
+        <ImageView
+            android:id="@+id/imageview2"
+            android:layout_below="@+id/imageview"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/gopro_small2"
+            android:layout_alignParentRight="true" />
+
+        <ImageView
+            android:id="@+id/imageview3"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/gopro_small3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="false"
+            android:layout_below="@+id/imageview1" />
+    </RelativeLayout>
+
+</RelativeLayout>
