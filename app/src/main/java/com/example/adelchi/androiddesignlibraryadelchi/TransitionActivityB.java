@@ -51,18 +51,18 @@ public class TransitionActivityB extends AppCompatActivity {
 
         imageView = (ImageView)findViewById(R.id.imageview);
 
-        String value = getIntent().getExtras().getString("img", "");
+        Integer value = getIntent().getExtras().getInt("img", 0);
         switch (value){
-            case "imageview":
+            case R.drawable.gopro_small:
                 Glide.with(this).load(R.drawable.gopro).into(imageView);
                 break;
-            case "imageview1":
+            case R.drawable.gopro_small1:
                 Glide.with(this).load(R.drawable.gopro_1).into(imageView);
                 break;
-            case "imageview2":
+            case R.drawable.gopro_small2:
                 Glide.with(this).load(R.drawable.gopro_2).into(imageView);
                 break;
-            case "imageview3":
+            case R.drawable.gopro_small3:
                 Glide.with(this).load(R.drawable.gopro_3).into(imageView);
                 break;
         }

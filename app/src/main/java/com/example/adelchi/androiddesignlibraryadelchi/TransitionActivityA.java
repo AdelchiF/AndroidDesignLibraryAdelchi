@@ -2,10 +2,14 @@ package com.example.adelchi.androiddesignlibraryadelchi;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.transition.Transition;
@@ -17,11 +21,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.adelchi.androiddesignlibraryadelchi.adapter.RecyclerViewAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class TransitionActivityA extends AppCompatActivity implements View.OnClickListener {
 
-    Toolbar mToolbar;
-    ImageView imageView, imageView1, imageView2, imageView3;
-    Context mContext;
+    private Toolbar mToolbar;
+    private ImageView imageView, imageView1, imageView2, imageView3;
+    private Context mContext;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerViewAdapter mRecyclerViweAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,26 +71,27 @@ public class TransitionActivityA extends AppCompatActivity implements View.OnCli
         if(getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        imageView = (ImageView)findViewById(R.id.imageview);
-        imageView1 = (ImageView)findViewById(R.id.imageview1);
-        imageView2 = (ImageView)findViewById(R.id.imageview2);
-        imageView3 = (ImageView)findViewById(R.id.imageview3);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-        /**
-         * Il transitionName è essenziale per definire quali tipi di elementi
-         * devono essere condivisi nella transazione, deve essere sia nell'elemento
-         * della prima activity che nell'elemento della seconda activity
-         */
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            imageView.setTransitionName("imageValeAde");
-            imageView1.setTransitionName("imageValeAde");
-            imageView2.setTransitionName("imageValeAde");
-            imageView3.setTransitionName("imageValeAde");
+        mRecyclerView.setHasFixedSize(true);
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mLayoutManager = new LinearLayoutManager(this);
+        } else {
+            mLayoutManager = new GridLayoutManager(this, 2);
         }
-        imageView.setOnClickListener(this);
-        imageView1.setOnClickListener(this);
-        imageView2.setOnClickListener(this);
-        imageView3.setOnClickListener(this);
+
+        List<Element> elements = new ArrayList<>();
+        elements.add(new Element("Foto 1", R.drawable.gopro_small));
+        elements.add(new Element("Foto 2", R.drawable.gopro_small1));
+        elements.add(new Element("Foto 3", R.drawable.gopro_small2));
+        elements.add(new Element("Foto 4", R.drawable.gopro_small3));
+
+        mRecyclerViweAdapter = new RecyclerViewAdapter(elements, this, TransitionActivityA.this);
+
+        mRecyclerView.setAdapter(mRecyclerViweAdapter);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
     }
 
@@ -113,5 +127,31 @@ public class TransitionActivityA extends AppCompatActivity implements View.OnCli
         Intent intent = new Intent(mContext, TransitionActivityB.class);
         intent.putExtra("img", getResources().getResourceEntryName(v.getId()));
         startActivity(intent, activityOptionsCompat.toBundle());
+    }
+
+    public class Element{
+        private String name;
+        private Integer image;
+
+        public Element(String name, Integer image) {
+            this.name = name;
+            this.image = image;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Integer getImage() {
+            return image;
+        }
+
+        public void setImage(Integer image) {
+            this.image = image;
+        }
     }
 }
