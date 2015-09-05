@@ -34,7 +34,7 @@ public class TransitionActivityA extends AppCompatActivity implements View.OnCli
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private RecyclerViewAdapter mRecyclerViweAdapter;
+    private RecyclerViewAdapter mRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class TransitionActivityA extends AppCompatActivity implements View.OnCli
             TransitionInflater inflater = TransitionInflater.from(this);
             Transition transition = inflater.inflateTransition(R.transition.transition_a);
             getWindow().setExitTransition(transition);
+
         }
 
         setContentView(R.layout.activity_transition);
@@ -87,9 +88,9 @@ public class TransitionActivityA extends AppCompatActivity implements View.OnCli
         elements.add(new Element("Foto 3", R.drawable.gopro_small2));
         elements.add(new Element("Foto 4", R.drawable.gopro_small3));
 
-        mRecyclerViweAdapter = new RecyclerViewAdapter(elements, this, TransitionActivityA.this);
+        mRecyclerViewAdapter = new RecyclerViewAdapter(elements, this, TransitionActivityA.this);
 
-        mRecyclerView.setAdapter(mRecyclerViweAdapter);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 

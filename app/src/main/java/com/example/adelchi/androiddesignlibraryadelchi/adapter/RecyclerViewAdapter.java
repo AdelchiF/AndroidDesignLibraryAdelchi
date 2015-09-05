@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.adelchi.androiddesignlibraryadelchi.R;
 import com.example.adelchi.androiddesignlibraryadelchi.TransitionActivityA;
 import com.example.adelchi.androiddesignlibraryadelchi.TransitionActivityB;
@@ -42,6 +43,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(View v) {
             super(v);
             mImageView = (ImageView)v.findViewById(R.id.imageView);
+
+            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mImageView.setTransitionName("imageValeAde");
+            }
+
             mTextView = (TextView)v.findViewById(R.id.textView);
             mRelativeLayout = (RelativeLayout)v.findViewById(R.id.container_element);
         }
@@ -76,21 +82,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // - replace the contents of the view with that element
         TransitionActivityA.Element element = elements.get(position);
 
-        Drawable drawable;
-
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawable = mContext.getResources().getDrawable(element.getImage(), mContext.getTheme());
-        }else {
-            drawable = mContext.getResources().getDrawable(element.getImage());
-        }
-
-        holder.mImageView.setImageDrawable(drawable);
+        //holder.mImageView.setImageDrawable(drawable);
+        Glide.with(mContext).load(element.getImage()).into(holder.mImageView);
         holder.mImageView.setTag(element.getImage());
         holder.mTextView.setText(element.getName());
-
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            holder.mImageView.setTransitionName("imageValeAde");
-        }
 
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
