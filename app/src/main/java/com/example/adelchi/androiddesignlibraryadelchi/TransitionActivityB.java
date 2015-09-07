@@ -1,5 +1,11 @@
 package com.example.adelchi.androiddesignlibraryadelchi;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.SharedElementCallback;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -14,10 +20,15 @@ import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.adelchi.androiddesignlibraryadelchi.anim.ClassAnimator;
+
+import java.util.List;
+import java.util.Map;
 
 public class TransitionActivityB extends AppCompatActivity {
 
@@ -35,9 +46,14 @@ public class TransitionActivityB extends AppCompatActivity {
          * file xml ma viene definita una transizione base dell'sdk
          */
         if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            Fade fade = new Fade();
+            /*Fade fade = new Fade();
             fade.setDuration(500);
-            getWindow().setEnterTransition(fade);
+            getWindow().setEnterTransition(fade);*/
+
+            TransitionInflater inflater = TransitionInflater.from(this);
+            Transition transition = inflater.inflateTransition(R.transition.transition_a);
+            getWindow().setEnterTransition(transition);
+
         }
 
         setContentView(R.layout.activity_transition_activity_b);
@@ -52,6 +68,10 @@ public class TransitionActivityB extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.imageview);
 
         Integer value = getIntent().getExtras().getInt("img", 0);
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            imageView.setTransitionName("imageValeAde" + value.toString());
+        }
+
         switch (value){
             case R.drawable.gopro_small:
                 Glide.with(this).load(R.drawable.gopro).into(imageView);
@@ -118,4 +138,5 @@ public class TransitionActivityB extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

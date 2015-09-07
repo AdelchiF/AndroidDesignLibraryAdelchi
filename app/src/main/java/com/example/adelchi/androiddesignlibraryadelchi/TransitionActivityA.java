@@ -11,6 +11,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
@@ -26,7 +28,7 @@ import com.example.adelchi.androiddesignlibraryadelchi.adapter.RecyclerViewAdapt
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransitionActivityA extends AppCompatActivity implements View.OnClickListener {
+public class TransitionActivityA extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private ImageView imageView, imageView1, imageView2, imageView3;
@@ -60,6 +62,7 @@ public class TransitionActivityA extends AppCompatActivity implements View.OnCli
             TransitionInflater inflater = TransitionInflater.from(this);
             Transition transition = inflater.inflateTransition(R.transition.transition_a);
             getWindow().setExitTransition(transition);
+            getWindow().setReenterTransition(new Fade().setDuration(250));
 
         }
 
@@ -116,18 +119,6 @@ public class TransitionActivityA extends AppCompatActivity implements View.OnCli
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        /**
-         * L'ActivityOptionsCompat serve per definire quale o quali elementi devono essere
-         * condivisi tra le due activity, vengono poi passate nello startActivity
-         */
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(TransitionActivityA.this, v, "imageValeAde");
-        Intent intent = new Intent(mContext, TransitionActivityB.class);
-        intent.putExtra("img", getResources().getResourceEntryName(v.getId()));
-        startActivity(intent, activityOptionsCompat.toBundle());
     }
 
     public class Element{

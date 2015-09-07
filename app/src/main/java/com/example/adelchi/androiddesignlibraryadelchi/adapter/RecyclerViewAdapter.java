@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.test.ActivityTestCase;
 import android.view.LayoutInflater;
@@ -28,7 +29,6 @@ import java.util.List;
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<TransitionActivityA.Element> elements;
-    private ViewHolder vh;
     private Context mContext;
     private Activity mActivity;
 
@@ -43,10 +43,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(View v) {
             super(v);
             mImageView = (ImageView)v.findViewById(R.id.imageView);
-
-            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mImageView.setTransitionName("imageValeAde");
-            }
 
             mTextView = (TextView)v.findViewById(R.id.textView);
             mRelativeLayout = (RelativeLayout)v.findViewById(R.id.container_element);
@@ -69,9 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .inflate(R.layout.grid_element, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
-        ViewHolder vh = new ViewHolder(v);
-        this.vh = vh;
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -82,6 +76,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // - replace the contents of the view with that element
         TransitionActivityA.Element element = elements.get(position);
 
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.mImageView.setTransitionName("imageValeAde"+element.getImage().toString());
+        }
+
         //holder.mImageView.setImageDrawable(drawable);
         Glide.with(mContext).load(element.getImage()).into(holder.mImageView);
         holder.mImageView.setTag(element.getImage());
@@ -90,7 +88,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, v, "imageValeAde");
+                /**
+                 * Definisce quale o quali sono gli sharedelements da passare all'activity successiva
+                 * ATTENZIONE: non bisogna passare v nel makeSceneTransitionAnimation() poichè non fa riferimento
+                 * all'immagine ma a tutta la cardview scalando l'immagine in modo scorrettpo
+                 */
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, v.findViewById(R.id.imageView), "imageValeAde"+(int)v.findViewById(R.id.imageView).getTag());
                 Intent intent = new Intent(mContext, TransitionActivityB.class);
                 intent.putExtra("img", (int)v.findViewById(R.id.imageView).getTag());
                 mContext.startActivity(intent, activityOptionsCompat.toBundle());
