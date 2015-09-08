@@ -78,11 +78,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.mImageView.setTransitionName("imageValeAde"+element.getImage().toString());
+            holder.mTextView.setTransitionName("textValeAde" + element.getImage().toString());
         }
 
         //holder.mImageView.setImageDrawable(drawable);
         Glide.with(mContext).load(element.getImage()).into(holder.mImageView);
         holder.mImageView.setTag(element.getImage());
+        holder.mTextView.setTag(element.getName());
         holder.mTextView.setText(element.getName());
 
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -93,9 +95,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                  * ATTENZIONE: non bisogna passare v nel makeSceneTransitionAnimation() poichè non fa riferimento
                  * all'immagine ma a tutta la cardview scalando l'immagine in modo scorrettpo
                  */
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, v.findViewById(R.id.imageView), "imageValeAde"+(int)v.findViewById(R.id.imageView).getTag());
+                Pair<View, String> pairImage = Pair.create(v.findViewById(R.id.imageView), "imageValeAde"+(int)v.findViewById(R.id.imageView).getTag());
+                Pair<View, String> pairText = Pair.create(v.findViewById(R.id.textView), "textValeAde" + (int) v.findViewById(R.id.imageView).getTag());
+                //ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, v.findViewById(R.id.imageView), "imageValeAde"+(int)v.findViewById(R.id.imageView).getTag());
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, pairImage, pairText);
                 Intent intent = new Intent(mContext, TransitionActivityB.class);
                 intent.putExtra("img", (int)v.findViewById(R.id.imageView).getTag());
+                intent.putExtra("txt", v.findViewById(R.id.textView).getTag().toString());
                 mContext.startActivity(intent, activityOptionsCompat.toBundle());
             }
         });

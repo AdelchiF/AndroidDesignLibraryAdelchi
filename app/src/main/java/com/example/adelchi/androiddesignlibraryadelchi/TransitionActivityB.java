@@ -7,6 +7,7 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.adelchi.androiddesignlibraryadelchi.anim.ClassAnimator;
@@ -60,6 +62,8 @@ public class TransitionActivityB extends AppCompatActivity {
 
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
 
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.collapsingToolbarLayout);
+
         setSupportActionBar(mToolbar);
 
         if(getSupportActionBar()!=null)
@@ -71,6 +75,8 @@ public class TransitionActivityB extends AppCompatActivity {
         if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imageView.setTransitionName("imageValeAde" + value.toString());
         }
+
+        collapsingToolbarLayout.setTitle(getIntent().getExtras().getString("txt"));
 
         switch (value){
             case R.drawable.gopro_small:
