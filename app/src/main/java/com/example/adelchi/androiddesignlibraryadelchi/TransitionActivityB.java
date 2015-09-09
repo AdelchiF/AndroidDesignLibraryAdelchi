@@ -1,11 +1,5 @@
 package com.example.adelchi.androiddesignlibraryadelchi;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.app.SharedElementCallback;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -14,23 +8,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.example.adelchi.androiddesignlibraryadelchi.anim.ClassAnimator;
-
-import java.util.List;
-import java.util.Map;
 
 public class TransitionActivityB extends AppCompatActivity {
 
@@ -97,8 +84,14 @@ public class TransitionActivityB extends AppCompatActivity {
 
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.coorLayout);
 
-        final View myView = findViewById(R.id.scrollView);
-        final ClassAnimator classAnimator = new ClassAnimator(myView);
+        /**
+         * Lega il coordinatorlayout al floatingactionbutton in modo che quando viene scrollato
+         * questo sparisce
+         */
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) floatingActionButton.getLayoutParams();
+        ScrollAwareFABBehavior scrollAwareFABBehavior = new ScrollAwareFABBehavior(this, null);
+        p.setBehavior(scrollAwareFABBehavior);
+        floatingActionButton.setLayoutParams(p);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,8 +101,11 @@ public class TransitionActivityB extends AppCompatActivity {
                  * in caso la versione android è maggiore o uguale alla 21 posso effettuare le
                  * animazioni, altrimenti nascondo/mostro senza animazioni
                  */
+                View myView = findViewById(R.id.scrollView);
+                ClassAnimator classAnimator = new ClassAnimator(myView);
+
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    classAnimator.animateView();
+                    classAnimator.revealView();
                 }else{
                     if(myView.getVisibility() == View.VISIBLE){
                         myView.setVisibility(View.INVISIBLE);

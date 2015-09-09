@@ -174,7 +174,6 @@
             android:src="@android:drawable/btn_star_big_on"
             app:borderWidth="2dp"
             app:fabSize="normal"
-            app:layout_behavior="com.example.adelchi.androiddesignlibraryadelchi.ScrollAwareFABBehavior"
             app:rippleColor="@color/colorPrimaryDark" />
 
     </android.support.design.widget.CoordinatorLayout>

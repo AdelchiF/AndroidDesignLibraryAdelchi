@@ -19,9 +19,10 @@ public class ClassAnimator {
     public ClassAnimator(View viewTarget) {
 
         this.viewTarget = viewTarget;
+
     }
 
-    public void animateView(){
+    public void revealView(){
 
         if(viewTarget.getVisibility() == View.VISIBLE){
             // get the center for the clipping circle

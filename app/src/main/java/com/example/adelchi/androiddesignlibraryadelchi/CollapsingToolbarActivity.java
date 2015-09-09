@@ -1,5 +1,6 @@
 package com.example.adelchi.androiddesignlibraryadelchi;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -24,11 +25,14 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FloatingActionButton floatingActionButton;
     private CoordinatorLayout coordinatorLayout;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collapsing_toolbar);
+
+        mContext = this;
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,8 +44,14 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
 
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.coorLayout);
 
-        final View myView = findViewById(R.id.scrollView);
-        final ClassAnimator classAnimator = new ClassAnimator(myView);
+        /**
+         * Lega il coordinatorlayout al floatingactionbutton in modo che quando viene scrollato
+         * questo sparisce
+         */
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) floatingActionButton.getLayoutParams();
+        ScrollAwareFABBehavior scrollAwareFABBehavior = new ScrollAwareFABBehavior(this, null);
+        p.setBehavior(scrollAwareFABBehavior);
+        floatingActionButton.setLayoutParams(p);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +61,11 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
                  * in caso la versione android è maggiore o uguale alla 21 posso effettuare le
                  * animazioni, altrimenti nascondo/mostro senza animazioni
                  */
+                View myView = findViewById(R.id.scrollView);
+                ClassAnimator classAnimator = new ClassAnimator(myView);
+
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    classAnimator.animateView();
+                    classAnimator.revealView();
                 }else{
                     if(myView.getVisibility() == View.VISIBLE){
                         myView.setVisibility(View.INVISIBLE);
