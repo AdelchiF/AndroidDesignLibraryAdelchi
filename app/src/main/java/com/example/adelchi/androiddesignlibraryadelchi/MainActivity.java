@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mActionbarDrawerToggle;
     private int selectedDrawerElem;
     private Context mContext;
-
+    private ContentFragment contentFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
          * viene inserito all'interno del fragment_container
          */
 
-        ContentFragment contentFragment = new ContentFragment();
+        contentFragment = new ContentFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, contentFragment);
         fragmentTransaction.commit();
@@ -89,11 +89,13 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (selectedDrawerElem) {
                     case R.id.nav_item_2:
-                        ContentElement fragment = new ContentElement();
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_container, fragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                        if(contentFragment.isVisible()) {
+                            ContentElement fragment = new ContentElement();
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_container, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
                         break;
                     case R.id.nav_item_3:
                         startActivity(new Intent(mContext, TabActivity.class));
